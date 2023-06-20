@@ -1,5 +1,6 @@
 import './globals.css'
 import { Inter } from 'next/font/google'
+import Link from "next/link";
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -13,9 +14,28 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
+
+  const menuItem=(url:string,title:string,className?:string)=>(
+    <div><Link href={url} className={`bg-black text-white py-2 px-3 rounded-lg ${className}`}>{title}</Link> </div>
+  )
+
   return (
+
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={`container mx-auto ${inter.className} py-[10px]`}>
+        <div className='inline-flex space-x-3 w-full'>
+          {menuItem("/","Home","bg-white text-blue-500 text-lg")}
+          <div className='inline-flex justify-end space-x-3 w-full'>
+            {menuItem("/dashboard","Dashboard")}
+            {menuItem("/settings","Setting")}
+            {menuItem("/calculator","Calculator")}
+            {menuItem("/cari","Cari Orang")}
+          </div>
+        </div>
+
+        {children}
+      </body>
+
     </html>
   )
 }
